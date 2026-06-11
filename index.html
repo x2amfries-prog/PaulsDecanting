@@ -121,7 +121,11 @@
             max-width: 1280px;
             margin: 48px auto;
             padding: 0 20px;
+        }
+
+        .hero {
             text-align: center;
+            margin-bottom: 80px;
         }
 
         h1 {
@@ -131,7 +135,7 @@
             color: #38bdf8;
         }
 
-        p {
+        .hero p {
             color: #94a3b8;
             font-size: 1.1rem;
             margin-bottom: 25px;
@@ -154,6 +158,86 @@
             transform: translateY(-2px);
         }
 
+        /* SHOP SECTION */
+        #shop {
+            margin-top: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #38bdf8;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #334155;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .product-sizes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .size-option {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .size-option:hover {
+            border-color: #d4af37;
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        .size-label {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .size-price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            margin-top: 15px;
+        }
+
         @media (max-width: 768px) {
             nav {
                 display: none;
@@ -165,6 +249,10 @@
 
             .logo {
                 font-size: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -189,24 +277,161 @@
                 <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>
-                <span class="cart-count">0</span>
+                <span class="cart-count" id="cart-count">0</span>
             </button>
         </div>
     </header>
 
     <main>
-        <h1>Welcome to ScentSplitter</h1>
-        <p>Luxury fragrance decants at affordable prices</p>
-        <button onclick="shopNow()">Shop Now</button>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1>Welcome to ScentSplitter</h1>
+            <p>Luxury fragrance decants at affordable prices</p>
+            <button onclick="scrollToShop()">Shop Now</button>
+        </section>
+
+        <!-- SHOP SECTION -->
+        <section id="shop">
+            <h2 class="section-title">Featured Decants</h2>
+            <div class="products-grid">
+                <!-- Giorgio Armani -->
+                <div class="product-card">
+                    <div class="product-name">Giorgio Armani<br>Stronger With You Intensely</div>
+                    <div class="product-sizes">
+                        <div class="size-option">
+                            <span class="size-label">2ml Decant</span>
+                            <span class="size-price">$8.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">5ml Decant</span>
+                            <span class="size-price">$15.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">30ml Full Size</span>
+                            <span class="size-price">$42.00</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Giorgio Armani - Stronger With You Intensely')">Add to Cart</button>
+                </div>
+
+                <!-- Jean Paul Gaultier -->
+                <div class="product-card">
+                    <div class="product-name">Jean Paul Gaultier<br>Le Beau Le Parfum</div>
+                    <div class="product-sizes">
+                        <div class="size-option">
+                            <span class="size-label">2ml Decant</span>
+                            <span class="size-price">$8.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">5ml Decant</span>
+                            <span class="size-price">$16.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">30ml Full Size</span>
+                            <span class="size-price">$42.99</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Jean Paul Gaultier - Le Beau Le Parfum')">Add to Cart</button>
+                </div>
+
+                <!-- Valentino Uomo -->
+                <div class="product-card">
+                    <div class="product-name">Valentino Uomo<br>Born in Rome EDT</div>
+                    <div class="product-sizes">
+                        <div class="size-option">
+                            <span class="size-label">2ml Decant</span>
+                            <span class="size-price">$8.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">5ml Decant</span>
+                            <span class="size-price">$15.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">30ml Full Size</span>
+                            <span class="size-price">$42.00</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Valentino Uomo - Born in Rome EDT')">Add to Cart</button>
+                </div>
+
+                <!-- Rayhaan Pacific Aura -->
+                <div class="product-card">
+                    <div class="product-name">Rayhaan<br>Pacific Aura</div>
+                    <div class="product-sizes">
+                        <div class="size-option">
+                            <span class="size-label">2ml Decant</span>
+                            <span class="size-price">$2.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">5ml Decant</span>
+                            <span class="size-price">$4.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">30ml Full Size</span>
+                            <span class="size-price">$16.99</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Rayhaan - Pacific Aura')">Add to Cart</button>
+                </div>
+
+                <!-- Azzaro Chrome -->
+                <div class="product-card">
+                    <div class="product-name">Azzaro<br>Chrome</div>
+                    <div class="product-sizes">
+                        <div class="size-option">
+                            <span class="size-label">2ml Decant</span>
+                            <span class="size-price">$8.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">5ml Decant</span>
+                            <span class="size-price">$14.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">30ml Full Size</span>
+                            <span class="size-price">$41.99</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Azzaro - Chrome')">Add to Cart</button>
+                </div>
+
+                <!-- Lattafa Bade'e Al Oud -->
+                <div class="product-card">
+                    <div class="product-name">Lattafa<br>Bade'e Al Oud Honor & Glory</div>
+                    <div class="product-sizes">
+                        <div class="size-option">
+                            <span class="size-label">2ml Decant</span>
+                            <span class="size-price">$1.99</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">5ml Decant</span>
+                            <span class="size-price">$3.79</span>
+                        </div>
+                        <div class="size-option">
+                            <span class="size-label">30ml Full Size</span>
+                            <span class="size-price">$11.99</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Lattafa - Bade\'e Al Oud Honor & Glory')">Add to Cart</button>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
+        let cartCount = 0;
+
         function toggleCart() {
             alert('Cart feature coming soon!');
         }
         
-        function shopNow() {
-            alert('Shop feature coming soon!');
+        function scrollToShop() {
+            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function addToCart(productName) {
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+            alert(productName + ' added to cart!');
         }
     </script>
 </body>
