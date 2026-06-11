@@ -243,6 +243,161 @@
             margin-top: 15px;
         }
 
+        /* CART MODAL */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid #d4af37;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 15px;
+        }
+
+        .cart-header h2 {
+            font-size: 1.75rem;
+            color: #38bdf8;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #d4af37;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: #ec4899;
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            background-color: #0f172a;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #334155;
+        }
+
+        .item-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #f8fafc;
+            font-size: 0.95rem;
+        }
+
+        .item-details {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            margin-top: 4px;
+        }
+
+        .item-price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right: 15px;
+        }
+
+        .remove-btn {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: #991b1b;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #cbd5e1;
+            padding: 40px 20px;
+        }
+
+        .empty-cart p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .cart-summary {
+            border-top: 2px solid #334155;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #cbd5e1;
+        }
+
+        .summary-line.total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d4af37;
+            border-top: 1px solid #334155;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
         @media (max-width: 768px) {
             nav {
                 display: none;
@@ -264,6 +419,11 @@
                 min-width: 60px;
                 padding: 8px 6px;
                 font-size: 0.9rem;
+            }
+
+            .cart-content {
+                width: 95%;
+                max-height: 90vh;
             }
         }
     </style>
@@ -292,6 +452,39 @@
             </button>
         </div>
     </header>
+
+    <!-- CART MODAL -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>🛒 Your Cart</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+            
+            <div id="cartItemsContainer">
+                <div class="empty-cart">
+                    <p>Your cart is empty</p>
+                    <p style="font-size: 0.9rem; color: #64748b;">Add items to get started!</p>
+                </div>
+            </div>
+
+            <div class="cart-summary" id="cartSummary" style="display: none;">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Shipping:</span>
+                    <span id="shipping">FREE</span>
+                </div>
+                <div class="summary-line total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
 
     <main>
         <!-- HERO SECTION -->
@@ -381,16 +574,7 @@
     </main>
 
     <script>
-        let cartCount = 0;
-        let selectedSizes = {};
-
-        function toggleCart() {
-            alert('Cart feature coming soon!');
-        }
-        
-        function scrollToShop() {
-            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
-        }
+        let cart = [];
 
         function selectSize(btn, size, price, productName) {
             // Remove active class from siblings
@@ -400,23 +584,109 @@
             // Add active class to clicked button
             btn.classList.add('active');
             
-            // Store selected size for this product
-            selectedSizes[productName] = { size, price };
-            
             // Update price display
             const priceIndex = Array.from(btn.closest('.product-card').parentElement.children).indexOf(btn.closest('.product-card'));
             document.getElementById(`price-${priceIndex + 1}`).textContent = price;
             
-            // Update add to cart button text
+            // Update add to cart button
             const addBtn = btn.closest('.product-card').querySelector('.add-to-cart-btn');
             addBtn.onclick = () => addToCart(productName, size, price);
         }
 
         function addToCart(productName, size, price) {
-            cartCount++;
-            document.getElementById('cart-count').textContent = cartCount;
-            alert(`✓ ${productName} (${size}) - ${price} added to cart!\n\nTotal items: ${cartCount}`);
+            const priceValue = parseFloat(price.replace('$', ''));
+            
+            cart.push({
+                product: productName,
+                size: size,
+                price: price,
+                priceValue: priceValue,
+                id: Date.now() + Math.random()
+            });
+
+            updateCartDisplay();
         }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartCount = cart.length;
+            document.getElementById('cart-count').textContent = cartCount;
+
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartSummary = document.getElementById('cartSummary');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <p style="font-size: 0.9rem; color: #64748b;">Add items to get started!</p>
+                    </div>
+                `;
+                cartSummary.style.display = 'none';
+                return;
+            }
+
+            cartSummary.style.display = 'block';
+
+            // Build cart items HTML
+            let itemsHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                itemsHTML += `
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <div class="item-name">${item.product}</div>
+                            <div class="item-details">${item.size}</div>
+                        </div>
+                        <div class="item-price">${item.price}</div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                    </div>
+                `;
+                total += item.priceValue;
+            });
+
+            cartItemsContainer.innerHTML = itemsHTML;
+
+            // Update summary
+            document.getElementById('subtotal').textContent = '$' + total.toFixed(2);
+            document.getElementById('total').textContent = '$' + total.toFixed(2);
+        }
+
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+        }
+
+        function scrollToShop() {
+            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + item.priceValue, 0);
+            alert(`✓ Order placed!\n\nItems: ${cart.length}\nTotal: $${total.toFixed(2)}\n\nThank you for shopping at ScentSplitter!`);
+            
+            // Clear cart
+            cart = [];
+            updateCartDisplay();
+            toggleCart();
+        }
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                toggleCart();
+            }
+        });
     </script>
 </body>
 </html>
