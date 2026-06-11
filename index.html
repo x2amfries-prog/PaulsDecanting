@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScentSplitter | Luxury Fragrance Decants</title>
+    <!-- Tailwind CSS for Modern Styling -->
+    <script src="https://tailwindcss.com"></script>
+    <script>
+        // Custom configurations for the site theme
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#111111',
+                        brandAccent: '#d4af37' // Luxury Gold
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Modern Dark Theme */
+        body {
+          background-color: #0f172a;
+          color: #f8fafc;
+          font-family: system-ui, -apple-system, sans-serif;
+          text-align: center;
+          padding: 40px 20px;
+        }
+
+        header h1 {
+          color: #38bdf8;
+          font-size: 2.5rem;
+          margin-bottom: 10px;
+        }
+
+        main p {
+          color: #94a3b8;
+          font-size: 1.1rem;
+          margin-bottom: 25px;
+        }
+
+        button {
+          background-color: #ec4899;
+          color: white;
+          padding: 12px 28px;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+          background-color: #db2777;
+          transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-neutral-800 font-sans antialiased">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brandDark text-white text-center text-xs py-2 tracking-wide font-medium">
+        ✨ FREE SHIPPING ON ALL DECANT ORDERS OVER $45! ✨
+    </div>
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 bg-white/95 backdrop-blur border-b border-gray-200 z-40">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-widest text-brandDark">SCENT<span class="text-brandAccent">SPLITTER</span></a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wider uppercase">
+                <a href="#shop" class="hover:text-brandAccent transition">Shop Decants</a>
+                <a href="#guarantee" class="hover:text-brandAccent transition">Our Guarantee</a>
+                <a href="#process" class="hover:text-brandAccent transition">How It Works</a>
+            </nav>
+            <button onclick="toggleCart()" class="relative p-2 text-brandDark hover:text-brandAccent transition">
+                <!-- Shopping Cart Icon -->
+                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-brandAccent text-brandDark font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto mt-12">
+        <h1 class="text-4xl font-bold mb-6">Welcome to ScentSplitter</h1>
+        <p>Luxury fragrance decants at affordable prices</p>
+        <button onclick="shopNow()">Shop Now</button>
+    </main>
+
+    <script>
+        function toggleCart() {
+            alert('Cart feature coming soon!');
+        }
+        function shopNow() {
+            alert('Shop feature coming soon!');
+        }
+    </script>
+</body>
+</html>
