@@ -199,38 +199,43 @@
             color: #f8fafc;
         }
 
-        .product-sizes {
+        .size-selector {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .size-option {
+        .size-btn {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px 8px;
             background-color: #0f172a;
-            border: 1px solid #334155;
+            border: 2px solid #334155;
             border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            color: #cbd5e1;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .size-option:hover {
+        .size-btn:hover {
             border-color: #d4af37;
             background-color: rgba(212, 175, 55, 0.1);
         }
 
-        .size-label {
-            color: #cbd5e1;
-            font-size: 0.95rem;
+        .size-btn.active {
+            background-color: #d4af37;
+            color: #111111;
+            border-color: #d4af37;
         }
 
-        .size-price {
+        .price-display {
+            font-size: 1.5rem;
             color: #d4af37;
             font-weight: bold;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
         }
 
         .add-to-cart-btn {
@@ -253,6 +258,12 @@
 
             .products-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .size-btn {
+                min-width: 60px;
+                padding: 8px 6px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -297,121 +308,73 @@
                 <!-- Giorgio Armani -->
                 <div class="product-card">
                     <div class="product-name">Giorgio Armani<br>Stronger With You Intensely</div>
-                    <div class="product-sizes">
-                        <div class="size-option">
-                            <span class="size-label">2ml Decant</span>
-                            <span class="size-price">$8.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">5ml Decant</span>
-                            <span class="size-price">$15.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">30ml Full Size</span>
-                            <span class="size-price">$42.00</span>
-                        </div>
+                    <div class="size-selector">
+                        <button class="size-btn active" onclick="selectSize(this, '2ml', '$8.99', 'Giorgio Armani - Stronger With You Intensely')">2ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '5ml', '$15.99', 'Giorgio Armani - Stronger With You Intensely')">5ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '30ml', '$42.00', 'Giorgio Armani - Stronger With You Intensely')">30ml</button>
                     </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Giorgio Armani - Stronger With You Intensely')">Add to Cart</button>
+                    <div class="price-display" id="price-1">$8.99</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Giorgio Armani - Stronger With You Intensely', '2ml', '$8.99')">Add to Cart</button>
                 </div>
 
                 <!-- Jean Paul Gaultier -->
                 <div class="product-card">
                     <div class="product-name">Jean Paul Gaultier<br>Le Beau Le Parfum</div>
-                    <div class="product-sizes">
-                        <div class="size-option">
-                            <span class="size-label">2ml Decant</span>
-                            <span class="size-price">$8.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">5ml Decant</span>
-                            <span class="size-price">$16.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">30ml Full Size</span>
-                            <span class="size-price">$42.99</span>
-                        </div>
+                    <div class="size-selector">
+                        <button class="size-btn active" onclick="selectSize(this, '2ml', '$8.99', 'Jean Paul Gaultier - Le Beau Le Parfum')">2ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '5ml', '$16.99', 'Jean Paul Gaultier - Le Beau Le Parfum')">5ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '30ml', '$42.99', 'Jean Paul Gaultier - Le Beau Le Parfum')">30ml</button>
                     </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Jean Paul Gaultier - Le Beau Le Parfum')">Add to Cart</button>
+                    <div class="price-display" id="price-2">$8.99</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Jean Paul Gaultier - Le Beau Le Parfum', '2ml', '$8.99')">Add to Cart</button>
                 </div>
 
                 <!-- Valentino Uomo -->
                 <div class="product-card">
                     <div class="product-name">Valentino Uomo<br>Born in Rome EDT</div>
-                    <div class="product-sizes">
-                        <div class="size-option">
-                            <span class="size-label">2ml Decant</span>
-                            <span class="size-price">$8.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">5ml Decant</span>
-                            <span class="size-price">$15.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">30ml Full Size</span>
-                            <span class="size-price">$42.00</span>
-                        </div>
+                    <div class="size-selector">
+                        <button class="size-btn active" onclick="selectSize(this, '2ml', '$8.99', 'Valentino Uomo - Born in Rome EDT')">2ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '5ml', '$15.99', 'Valentino Uomo - Born in Rome EDT')">5ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '30ml', '$42.00', 'Valentino Uomo - Born in Rome EDT')">30ml</button>
                     </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Valentino Uomo - Born in Rome EDT')">Add to Cart</button>
+                    <div class="price-display" id="price-3">$8.99</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Valentino Uomo - Born in Rome EDT', '2ml', '$8.99')">Add to Cart</button>
                 </div>
 
                 <!-- Rayhaan Pacific Aura -->
                 <div class="product-card">
                     <div class="product-name">Rayhaan<br>Pacific Aura</div>
-                    <div class="product-sizes">
-                        <div class="size-option">
-                            <span class="size-label">2ml Decant</span>
-                            <span class="size-price">$2.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">5ml Decant</span>
-                            <span class="size-price">$4.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">30ml Full Size</span>
-                            <span class="size-price">$16.99</span>
-                        </div>
+                    <div class="size-selector">
+                        <button class="size-btn active" onclick="selectSize(this, '2ml', '$2.99', 'Rayhaan - Pacific Aura')">2ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '5ml', '$4.99', 'Rayhaan - Pacific Aura')">5ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '30ml', '$16.99', 'Rayhaan - Pacific Aura')">30ml</button>
                     </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Rayhaan - Pacific Aura')">Add to Cart</button>
+                    <div class="price-display" id="price-4">$2.99</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Rayhaan - Pacific Aura', '2ml', '$2.99')">Add to Cart</button>
                 </div>
 
                 <!-- Azzaro Chrome -->
                 <div class="product-card">
                     <div class="product-name">Azzaro<br>Chrome</div>
-                    <div class="product-sizes">
-                        <div class="size-option">
-                            <span class="size-label">2ml Decant</span>
-                            <span class="size-price">$8.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">5ml Decant</span>
-                            <span class="size-price">$14.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">30ml Full Size</span>
-                            <span class="size-price">$41.99</span>
-                        </div>
+                    <div class="size-selector">
+                        <button class="size-btn active" onclick="selectSize(this, '2ml', '$8.99', 'Azzaro - Chrome')">2ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '5ml', '$14.99', 'Azzaro - Chrome')">5ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '30ml', '$41.99', 'Azzaro - Chrome')">30ml</button>
                     </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Azzaro - Chrome')">Add to Cart</button>
+                    <div class="price-display" id="price-5">$8.99</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Azzaro - Chrome', '2ml', '$8.99')">Add to Cart</button>
                 </div>
 
                 <!-- Lattafa Bade'e Al Oud -->
                 <div class="product-card">
                     <div class="product-name">Lattafa<br>Bade'e Al Oud Honor & Glory</div>
-                    <div class="product-sizes">
-                        <div class="size-option">
-                            <span class="size-label">2ml Decant</span>
-                            <span class="size-price">$1.99</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">5ml Decant</span>
-                            <span class="size-price">$3.79</span>
-                        </div>
-                        <div class="size-option">
-                            <span class="size-label">30ml Full Size</span>
-                            <span class="size-price">$11.99</span>
-                        </div>
+                    <div class="size-selector">
+                        <button class="size-btn active" onclick="selectSize(this, '2ml', '$1.99', 'Lattafa - Bade\'e Al Oud Honor & Glory')">2ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '5ml', '$3.79', 'Lattafa - Bade\'e Al Oud Honor & Glory')">5ml</button>
+                        <button class="size-btn" onclick="selectSize(this, '30ml', '$11.99', 'Lattafa - Bade\'e Al Oud Honor & Glory')">30ml</button>
                     </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Lattafa - Bade\'e Al Oud Honor & Glory')">Add to Cart</button>
+                    <div class="price-display" id="price-6">$1.99</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Lattafa - Bade\'e Al Oud Honor & Glory', '2ml', '$1.99')">Add to Cart</button>
                 </div>
             </div>
         </section>
@@ -419,6 +382,7 @@
 
     <script>
         let cartCount = 0;
+        let selectedSizes = {};
 
         function toggleCart() {
             alert('Cart feature coming soon!');
@@ -428,10 +392,30 @@
             document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function addToCart(productName) {
+        function selectSize(btn, size, price, productName) {
+            // Remove active class from siblings
+            const siblings = btn.parentElement.querySelectorAll('.size-btn');
+            siblings.forEach(sibling => sibling.classList.remove('active'));
+            
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            // Store selected size for this product
+            selectedSizes[productName] = { size, price };
+            
+            // Update price display
+            const priceIndex = Array.from(btn.closest('.product-card').parentElement.children).indexOf(btn.closest('.product-card'));
+            document.getElementById(`price-${priceIndex + 1}`).textContent = price;
+            
+            // Update add to cart button text
+            const addBtn = btn.closest('.product-card').querySelector('.add-to-cart-btn');
+            addBtn.onclick = () => addToCart(productName, size, price);
+        }
+
+        function addToCart(productName, size, price) {
             cartCount++;
             document.getElementById('cart-count').textContent = cartCount;
-            alert(productName + ' added to cart!');
+            alert(`✓ ${productName} (${size}) - ${price} added to cart!\n\nTotal items: ${cartCount}`);
         }
     </script>
 </body>
